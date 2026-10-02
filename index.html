@@ -163,6 +163,8 @@
       accent-color: var(--acc);
       margin: 4px 0 14px;
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+
     }
 
     button,.btn {
@@ -443,8 +445,12 @@
       <span id="info"></span>
     </div>
     <div id="prog" hidden>
-      <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="fill" id="progfill"></div></div>
-      <div class="txt"><span id="progpct">0%</span><span id="progleft"></span></div>
+      <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="fill" id="progfill"></div>
+      </div>
+      <div class="txt">
+        <span id="progpct">0%</span><span id="progleft"></span>
+      </div>
     </div>
     <div id="out"></div>
     <div id="panels">
@@ -661,7 +667,7 @@
       if (imgs.length < 2)return; cancelAnimationFrame(raf); setBusy(true); run(()=>setBusy(false));
     };
     function setProgress(t, T) {
-      const pct = T ? Math.min(100, Math.round(t/T*100)) : 0;
+      const pct = T ? Math.min(100, Math.round(t/T*100)): 0;
       $('progfill').style.width = pct+'%';
       $('progpct').textContent = pct+'%';
       $('progleft').textContent = ((T-t)/1000).toFixed(1)+' s left';
