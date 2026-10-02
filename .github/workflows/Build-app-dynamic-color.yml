@@ -425,6 +425,7 @@ jobs:
                       new DynamicColorJavascriptInterface(),
                       "DynamicColorBridge"
                   );
+                  webView.setVerticalScrollBarEnabled(false);
 
                   webViewUserAgent = webView.getSettings().getUserAgentString();
 
