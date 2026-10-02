@@ -690,7 +690,7 @@
         $('prog').hidden = true;
         setBusy(false);
       };
-      $('out').textContent = 'Recording…'; setBusy(true); rec.start();
+      $('out').textContent = 'Exporting…'; setBusy(true); rec.start();
       setProgress(0, total()); $('prog').hidden = false;
       run(()=> {
         setProgress(total(), total()); $('progleft').textContent = 'Finishing…';
