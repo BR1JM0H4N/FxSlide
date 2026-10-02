@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Crossfade video maker</title>
+  <title>FxSlide</title>
   <style>
 :root {
     --bg: var( --md-surfaceVariant, #22271E);
@@ -21,8 +21,8 @@
     --on-acc-container: var(--fg);
     --track: var(--acc-container);
     box-sizing: border-box;
-    padding-top: env(safe-area-inset-top,0px);
-    padding-bottom: env(safe-area-inset-bottom,0px);
+    padding-top: var(--safe-area-inset-top,0px);
+    padding-bottom: var(--safe-area-inset-bottom,0px);
   }
 
     @font-face {
@@ -31,7 +31,7 @@
     }
 
     html {
-      scroll-padding-top: env(safe-area-inset-top,0px);
+      scroll-padding-top: var(--safe-area-inset-top,0px);
       background: var(--bg);
       -webkit-user-select: none;
       user-select: none;
@@ -40,7 +40,38 @@
     * {
       box-sizing: border-box
     }
+    .safe-top-patch {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
 
+      /* Automatically scales to the safe zone + extra breathing room for the fade */
+      height: calc(var(--safe-area-inset-top, 0px));
+
+      /* Fixes the broken gradient syntax */
+      background-color: var(--bg);
+
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+
+    .safe-bottom-patch {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+
+      /* Automatically scales to the safe zone + extra breathing room for the fade */
+      height: calc(var(--safe-area-inset-bottom, 0px));
+
+      /* Fixes the broken gradient syntax */
+      background-color: var(--bg);
+
+      z-index: 9999;
+      pointer-events: none;
+    }
     body {
 
       margin: 0;
@@ -364,6 +395,7 @@
   </style>
 </head>
 <body>
+  <div class="safe-top-patch"></div>
   <main>
     <h1>FxSlide</h1>
     <canvas id="c" width="1280" height="720"></canvas>
@@ -420,6 +452,7 @@
       </div>
     </div>
   </main>
+  <div class="safe-bottom-patch"></div>
   <script>
     const cv = document.getElementById('c'), ctx = cv.getContext('2d', {
       alpha: false
